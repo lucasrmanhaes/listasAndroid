@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -20,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.lucas.listaslazy.repository.getAllGames
 
 @Composable
 fun GamesScreen(estudio: MutableState<String>){
@@ -53,8 +55,11 @@ fun GamesScreen(estudio: MutableState<String>){
         Spacer(modifier = Modifier.height(16.dp))
 
         LazyColumn {
-            items(40){
-                Text(text = "Item 0$it")
+            items(getAllGames()){
+                Text(text = "Game: " + it.title)
+                Text(text = "Estúdio: " + it.studio)
+                Text(text = "Ano: " + it.releaseYear.toString())
+                Spacer(modifier = Modifier.height(6.dp))
             }
         }
 
