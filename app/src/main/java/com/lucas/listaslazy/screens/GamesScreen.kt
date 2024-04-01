@@ -37,7 +37,10 @@ fun GamesScreen(estudioState: MutableState<String>, listStudioState: MutableStat
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = estudioState.value,
-            onValueChange = {estudioState.value = it},
+            onValueChange = {
+                estudioState.value = it
+                listStudioState.value = getGamesByStudio(estudioState.value)
+            },
             modifier = Modifier.fillMaxWidth(),
             label = {
                 Text(text = "Nome do estúdio")
