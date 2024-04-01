@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.lucas.listaslazy.components.GameCard
+import com.lucas.listaslazy.components.StudioCard
 import com.lucas.listaslazy.model.Game
 import com.lucas.listaslazy.repository.getAllGames
 import com.lucas.listaslazy.repository.getGamesByStudio
@@ -58,7 +60,12 @@ fun GamesScreen(estudioState: MutableState<String>, listStudioState: MutableStat
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
-
+        LazyRow {
+            items(getAllGames()) {
+                StudioCard(game = it)
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
         LazyColumn {
             items(listStudioState.value){
                 GameCard(game = it)

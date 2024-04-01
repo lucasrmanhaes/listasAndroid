@@ -23,11 +23,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
                     var estudioState = remember{ mutableStateOf("") }
                     var listStudioState = remember{ mutableStateOf(getGamesByStudio(estudioState.value)) }
                     GamesScreen(estudioState, listStudioState)
-
                 }
             }
         }
