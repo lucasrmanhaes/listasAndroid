@@ -19,9 +19,9 @@ import com.lucas.listaslazy.model.Game
         )
     }
 
-    fun getGamesByStudio(studio: String): List<Game>{
+    fun getGamesByStudio(nomeEstudio: String): List<Game>{
         return getAllGames().filter {
-            it.studio.startsWith(prefix = studio, ignoreCase = true)
+            it.studio.startsWith(prefix = nomeEstudio, ignoreCase = true)
         }
     }
 

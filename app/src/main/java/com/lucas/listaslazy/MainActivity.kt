@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import com.lucas.listaslazy.repository.getGamesByStudio
 import com.lucas.listaslazy.screens.GamesScreen
 import com.lucas.listaslazy.ui.theme.ListasLazyTheme
 
@@ -22,8 +23,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    var estudio = remember{ mutableStateOf("") }
-                    GamesScreen(estudio)
+
+                    var estudioState = remember{ mutableStateOf("") }
+                    var listStudioState = remember{ mutableStateOf(getGamesByStudio(estudioState.value)) }
+                    GamesScreen(estudioState, listStudioState)
+
                 }
             }
         }

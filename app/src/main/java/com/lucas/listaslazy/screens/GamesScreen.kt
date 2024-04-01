@@ -15,18 +15,17 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.lucas.listaslazy.components.GameCard
+import com.lucas.listaslazy.model.Game
 import com.lucas.listaslazy.repository.getAllGames
+import com.lucas.listaslazy.repository.getGamesByStudio
 
 @Composable
-fun GamesScreen(estudio: MutableState<String>){
-    var item = remember { mutableStateOf(1) }
-
+fun GamesScreen(estudioState: MutableState<String>, listStudioState: MutableState<List<Game>>){
     Column(
         modifier = Modifier.padding(16.dp)
     ) {
@@ -37,14 +36,17 @@ fun GamesScreen(estudio: MutableState<String>){
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
-            value = estudio.value,
-            onValueChange = {estudio.value = it},
+            value = estudioState.value,
+            onValueChange = {estudioState.value = it},
             modifier = Modifier.fillMaxWidth(),
             label = {
                 Text(text = "Nome do estúdio")
             },
             trailingIcon = {
-                IconButton(onClick = { }) {
+                IconButton(
+                    onClick = { listStudioState.value = getGamesByStudio(estudioState.value) }
+                )
+                {
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = ""
@@ -55,11 +57,8 @@ fun GamesScreen(estudio: MutableState<String>){
         Spacer(modifier = Modifier.height(16.dp))
 
         LazyColumn {
-            items(getAllGames()){
-                Text(text = "Game: " + it.title)
-                Text(text = "Estúdio: " + it.studio)
-                Text(text = "Ano: " + it.releaseYear.toString())
-                Spacer(modifier = Modifier.height(6.dp))
+            items(listStudioState.value){
+                GameCard(game = it)
             }
         }
 
